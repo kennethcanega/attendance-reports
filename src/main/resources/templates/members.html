@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Members List</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+</head>
+<body>
+
+<div class="container mt-5">
+
+    <h2 class="mb-4">Members List</h2>
+
+    <!-- Search Form -->
+    <form th:action="@{/members}" method="get">
+        <div class="form-group">
+            <input type="text" class="form-control" name="search" placeholder="Search by name">
+            <button type="submit" class="btn btn-primary mt-2">Search</button>
+        </div>
+    </form>
+
+    <!-- Table -->
+    <table class="table table-striped">
+        <thead>
+        <tr>
+            <th>Profile Picture</th>
+            <th>Name</th>
+            <th>Attended Services</th>
+            <th>Remarks</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="member : ${members}">
+            <td><img th:src="@{${member.profilePicture}}" alt="Profile Picture" width="50" height="50"></td>
+            <td>
+                <span th:text="${member.name}"></span><br/>
+                <span th:class="'badge ' + ${member.status == 'ACTIVE' ? 'badge-success' :
+                                            member.status == 'INACTIVE' ? 'badge-secondary' :
+                                            member.status == 'SUSPENDED' ? 'badge-warning' :
+                                            member.status == 'EXCOMMUNICATED' ? 'badge-danger' : ''}"
+                      th:text="${member.status}">
+                </span>
+            </td>
+            <td>0/55</td>
+            <td th:text="${member.remarks}"></td>
+        </tr>
+        </tbody>
+    </table>
+
+    <!-- Pagination -->
+    <!--<div class="d-flex justify-content-center">
+        <ul class="pagination">
+            <li class="page-item" th:classappend="${page == 0 ? 'disabled' : ''}">
+                <a class="page-link" th:href="@{/members?page=0&search=${search}}">First</a>
+            </li>
+            <li class="page-item" th:classappend="${page == 0 ? 'disabled' : ''}">
+                <a class="page-link" th:href="@{/members?page=${page-1}&search=${search}}">Previous</a>
+            </li>
+            <li class="page-item" th:classappend="${page + 1 >= totalPages ? 'disabled' : ''}">
+                <a class="page-link" th:href="@{/members?page=${page+1}&search=${search}}">Next</a>
+            </li>
+            <li class="page-item" th:classappend="${page + 1 >= totalPages ? 'disabled' : ''}">
+                <a class="page-link" th:href="@{/members?page=${totalPages-1}&search=${search}}">Last</a>
+            </li>
+        </ul>
+    </div>-->
+
+</div>
+
+</body>
+</html>
