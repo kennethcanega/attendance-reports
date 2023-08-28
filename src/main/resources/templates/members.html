@@ -23,8 +23,9 @@
     <table class="table table-striped">
         <thead>
         <tr>
-            <th>Profile Picture</th>
+            <th></th>
             <th>Name</th>
+            <th>Last Seen</th>
             <th>Attended Services</th>
             <th>Remarks</th>
         </tr>
@@ -33,7 +34,7 @@
         <tr th:each="member : ${members}">
             <td><img th:src="@{${member.profilePicture}}" alt="Profile Picture" width="50" height="50"></td>
             <td>
-                <span th:text="${member.name}"></span><br/>
+                <a th:text="${member.name}" href="#"></a><br/>
                 <span th:class="'badge ' + ${member.status == 'ACTIVE' ? 'badge-success' :
                                             member.status == 'INACTIVE' ? 'badge-secondary' :
                                             member.status == 'SUSPENDED' ? 'badge-warning' :
@@ -41,6 +42,7 @@
                       th:text="${member.status}">
                 </span>
             </td>
+            <td>Aug 28, 2023</td>
             <td>0/55</td>
             <td th:text="${member.remarks}"></td>
         </tr>
