@@ -12,7 +12,7 @@
     <h2 class="mb-4">Members List</h2>
 
     <!-- Search Form -->
-    <form th:action="@{/members}" method="get">
+    <form th:action="@{/page.items}" method="get">
         <div class="form-group">
             <input type="text" class="form-control" name="search" placeholder="Search by name">
             <button type="submit" class="btn btn-primary mt-2">Search</button>
@@ -23,7 +23,9 @@
     <table class="table table-striped">
         <thead>
         <tr>
-            <th></th>
+            <th>
+                <span th:text="${search}"></span>
+            </th>
             <th>Name</th>
             <th>Last Seen</th>
             <th>Attended Services</th>
@@ -31,7 +33,7 @@
         </tr>
         </thead>
         <tbody>
-        <tr th:each="member : ${members}">
+        <tr th:each="member : ${page.items}">
             <td><img th:src="@{${member.profilePicture}}" alt="Profile Picture" width="50" height="50"></td>
             <td>
                 <a th:text="${member.name}" href="#"></a><br/>
@@ -44,28 +46,32 @@
             </td>
             <td>Aug 28, 2023</td>
             <td>0/55</td>
-            <td th:text="${member.remarks}"></td>
+            <td>
+<!--                <span th:text="${member.remarks}"></span>-->
+            </td>
         </tr>
         </tbody>
     </table>
 
     <!-- Pagination -->
-    <!--<div class="d-flex justify-content-center">
+    <div class="d-flex justify-content-center">
         <ul class="pagination">
-            <li class="page-item" th:classappend="${page == 0 ? 'disabled' : ''}">
-                <a class="page-link" th:href="@{/members?page=0&search=${search}}">First</a>
+            <li class="page-item" th:classappend="${currentPage == 1 ? 'disabled' : ''}">
+                <a class="page-link" th:href="@{'/reports/members?page=1&search=' + ${search}+ '&key=' + ${key} + '&code=' + ${code}}">First</a>
+
             </li>
-            <li class="page-item" th:classappend="${page == 0 ? 'disabled' : ''}">
-                <a class="page-link" th:href="@{/members?page=${page-1}&search=${search}}">Previous</a>
+            <li class="page-item" th:classappend="${currentPage == 1 ? 'disabled' : ''}">
+                <a class="page-link" th:href="@{'/reports/members?page=' + (${currentPage - 1}) + '&search=' + ${search}+ '&key=' + ${key} + '&code=' + ${code}}">Previous</a>
             </li>
-            <li class="page-item" th:classappend="${page + 1 >= totalPages ? 'disabled' : ''}">
-                <a class="page-link" th:href="@{/members?page=${page+1}&search=${search}}">Next</a>
+            <li class="page-item" th:classappend="${currentPage + 1 >= totalPages ? 'disabled' : ''}">
+                <a class="page-link" th:href="@{'/reports/members?page=' + (${currentPage + 1}) + '&search=' + ${search}+ '&key=' + ${key} + '&code=' + ${code}}">Next</a>
             </li>
-            <li class="page-item" th:classappend="${page + 1 >= totalPages ? 'disabled' : ''}">
-                <a class="page-link" th:href="@{/members?page=${totalPages-1}&search=${search}}">Last</a>
+            <li class="page-item" th:classappend="${currentPage + 1 >= totalPages ? 'disabled' : ''}">
+                <a class="page-link" th:href="@{'/reports/members?page=' + (${totalPages}) + '&search=' + ${search} + '&key=' + ${key} + '&code=' + ${code}}">Last</a>
             </li>
         </ul>
-    </div>-->
+    </div>
+
 
 </div>
 

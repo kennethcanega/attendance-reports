@@ -3,6 +3,7 @@ package com.crbcph.attendance.reports;
 import com.crbcph.attendance.component.config.ApiConfig;
 import com.crbcph.attendance.members.gateway.MemberGateway;
 import com.crbcph.attendance.members.model.domain.Member;
+import com.crbcph.attendance.members.model.domain.MemberPageDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -24,15 +25,23 @@ public class AttendanceReportController {
     @GetMapping("/members")
     public String viewReports(
             @RequestParam(name = "code") String code,
+            @RequestParam(name = "search", defaultValue = "") String search,
             @RequestParam(name = "key") String key,
-            @RequestParam(name = "page") int page,
+            @RequestParam(name = "page", defaultValue = "1") int page,
             Model model
     ) {
         Map<String, String> keyValues = new HashMap<>();
         keyValues.put("code", code);
         keyValues.put("key", key);
+        keyValues.put("search", search);
         keyValues.put("page", Integer.toString(page));
-        model.addAttribute("members", memberGateway.findAll(keyValues));
+        MemberPageDto<Member> data = memberGateway.findAll(keyValues);
+        model.addAttribute("page", data);
+        model.addAttribute("search", search);
+        model.addAttribute("currentPage", data.getCurrentPage());
+        model.addAttribute("totalPages", data.getTotalPages());
+        model.addAttribute("code", code);
+        model.addAttribute("key", key);
         return "members";
     }
 

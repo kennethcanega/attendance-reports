@@ -13,7 +13,7 @@ public class Member {
     private Long id;
     private String name;
     private String nickName;
-    private String picture;
+    private String profilePicture;
     private MemberStatus memberStatus;
     private Status status;
 }
