@@ -1,4 +1,4 @@
-package com.crbcph.attendance.reports;
+package com.crbcph.attendance.component.config;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -15,4 +15,8 @@ import org.springframework.stereotype.Component;
 public class ApiConfig {
     @Value("${api.ushering.url}")
     private String url;
+    @Value("${client.application.id}")
+    private String clientId;
+    @Value("${client.application.secret}")
+    private String clientSecret;
 }
