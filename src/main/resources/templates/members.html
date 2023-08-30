@@ -58,17 +58,17 @@
         <ul class="pagination">
             <!-- Previous Page -->
             <li class="page-item" th:classappend="${currentPage == 1 ? 'disabled' : ''}">
-                <a class="page-link" th:href="@{'/reports/members?page=' + (${currentPage - 1}) + '&search=' + ${search}+ '&key=' + ${key} + '&code=' + ${code}}">Previous</a>
+                <a class="page-link" th:href="@{'/reports/members?page=' + (${currentPage - 1}) + '&search=' + ${search}+ '&key=' + ${key} + '&code=' + ${code}+ '&email=' + ${email}}">Previous</a>
             </li>
 
             <!-- Page Numbers -->
             <li class="page-item" th:each="pageNumber : ${displayPages}" th:classappend="${pageNumber == currentPage ? 'active' : ''}">
-                <a class="page-link" th:href="@{'/reports/members?page=' + ${pageNumber} + '&search=' + ${search} + '&key=' + ${key} + '&code=' + ${code}}" th:text="${pageNumber}"></a>
+                <a class="page-link" th:href="@{'/reports/members?page=' + ${pageNumber} + '&search=' + ${search} + '&key=' + ${key} + '&code=' + ${code}+ '&email=' + ${email}}" th:text="${pageNumber}"></a>
             </li>
 
             <!-- Next Page -->
             <li class="page-item" th:classappend="${currentPage + 1 >= totalPages ? 'disabled' : ''}">
-                <a class="page-link" th:href="@{'/reports/members?page=' + (${currentPage + 1}) + '&search=' + ${search}+ '&key=' + ${key} + '&code=' + ${code}}">Next</a>
+                <a class="page-link" th:href="@{'/reports/members?page=' + (${currentPage + 1}) + '&search=' + ${search}+ '&key=' + ${key} + '&code=' + ${code}+ '&email=' + ${email}}">Next</a>
             </li>
         </ul>
     </div>

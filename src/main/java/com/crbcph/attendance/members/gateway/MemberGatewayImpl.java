@@ -25,7 +25,9 @@ public class MemberGatewayImpl implements MemberGateway {
                 Integer.parseInt(keyValues.get("page")),
                 keyValues.get("code"),
                 keyValues.get("key"),
-                keyValues.get("search")
+                keyValues.get("search"),
+                keyValues.get("email"),
+                Integer.parseInt(keyValues.get("size"))
         );
         if (response.getStatusCode() == HttpStatus.OK) {
             return response.getBody();
