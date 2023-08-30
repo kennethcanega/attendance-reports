@@ -1,9 +1,24 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-    <title>Members List</title>
+    <title>CRBC Ushering | Members</title>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://mysite.com/my-page">
+    <meta property="og:title" content="CRBC Members">
+    <meta property="og:description" content="These are the attendance details of CRBC members.">
+    <meta property="og:image" content="https://crbc-events.s3.ap-southeast-2.amazonaws.com/church-related/members.jpeg">
+
+    <!-- Twitter -->
+    <meta property="twitter:card" content="summary_large_image">
+    <meta property="twitter:url" content="https://mysite.com/my-page">
+    <meta property="twitter:title" content="CRBC Members">
+    <meta property="twitter:description" content="These are the attendance details of CRBC members.">
+    <meta property="twitter:image" content="https://crbc-events.s3.ap-southeast-2.amazonaws.com/church-related/members.jpeg">
+
+    <meta name="description" content="These are the attendance details of CRBC members.">
 </head>
 <body>
 
@@ -27,7 +42,6 @@
                 <span th:text="${search}"></span>
             </th>
             <th>Name</th>
-            <th>Last Seen</th>
             <th>Attended Services</th>
             <th>Remarks</th>
         </tr>
@@ -37,15 +51,13 @@
             <td><img th:src="@{${member.profilePicture}}" alt="Profile Picture" width="50" height="50"></td>
             <td>
                 <a th:text="${member.name}" href="#"></a><br/>
-                <span th:class="'badge ' + ${member.status == 'ACTIVE' ? 'badge-success' :
-                                            member.status == 'INACTIVE' ? 'badge-secondary' :
-                                            member.status == 'SUSPENDED' ? 'badge-warning' :
-                                            member.status == 'EXCOMMUNICATED' ? 'badge-danger' : ''}"
-                      th:text="${member.status}">
+                <span th:class="'badge ' + ${member.badgeColor}"
+                      th:text="${member.memberStatus}">
                 </span>
             </td>
-            <td>Aug 28, 2023</td>
-            <td>0/55</td>
+            <td>
+               <span th:text="${member.attendedServices}"></span>
+            </td>
             <td>
                 <span th:text="${member.remarks}"></span>
             </td>
