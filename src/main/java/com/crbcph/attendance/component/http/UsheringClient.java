@@ -17,6 +17,7 @@ public interface UsheringClient {
             @RequestParam("page") int page,
             @RequestParam("access_code") String code,
             @RequestParam("access_key") String key,
-            @RequestParam("search") String search
+            @RequestParam("search") String search,
+            @RequestParam("email") String email
     );
 }

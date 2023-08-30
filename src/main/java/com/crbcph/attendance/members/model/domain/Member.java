@@ -14,6 +14,10 @@ public class Member {
     private String name;
     private String nickName;
     private String profilePicture;
+    private String remarks;
+    private String lastSeen;
+    private int attendedServices;
+    private int totalServices;
     private MemberStatus memberStatus;
     private Status status;
 }

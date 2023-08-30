@@ -26,6 +26,7 @@ public class AttendanceReportController {
     public String viewReports(
             @RequestParam(name = "code") String code,
             @RequestParam(name = "search", defaultValue = "") String search,
+            @RequestParam(name = "email", defaultValue = "") String email,
             @RequestParam(name = "key") String key,
             @RequestParam(name = "page", defaultValue = "1") int page,
             Model model
@@ -34,6 +35,7 @@ public class AttendanceReportController {
         keyValues.put("code", code);
         keyValues.put("key", key);
         keyValues.put("search", search);
+        keyValues.put("email", email);
         keyValues.put("page", Integer.toString(page));
         MemberPageDto<Member> data = memberGateway.findAll(keyValues);
         model.addAttribute("page", data);
@@ -42,6 +44,7 @@ public class AttendanceReportController {
         model.addAttribute("totalPages", data.getTotalPages());
         model.addAttribute("code", code);
         model.addAttribute("key", key);
+        keyValues.put("email", email);
         model.addAttribute("displayPages", data.getDisplayPages());
         return "members";
     }
