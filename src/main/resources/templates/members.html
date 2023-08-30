@@ -16,9 +16,16 @@
     <meta property="twitter:url" content="https://mysite.com/my-page">
     <meta property="twitter:title" content="CRBC Members">
     <meta property="twitter:description" content="These are the attendance details of CRBC members.">
-    <meta property="twitter:image" content="https://crbc-events.s3.ap-southeast-2.amazonaws.com/church-related/members.jpeg">
+    <meta property="twitter:image"
+          content="https://crbc-events.s3.ap-southeast-2.amazonaws.com/church-related/members.jpeg">
 
     <meta name="description" content="These are the attendance details of CRBC members.">
+    <style>
+        .inactive-member {
+            font-weight: bold;
+            background-color: #E7A6A2FF !important;
+        }
+    </style>
 </head>
 <body>
 
@@ -34,53 +41,55 @@
         </div>
     </form>
 
+    <span><i>The rows highlighted in red indicate members who have been absent from the church for an extended period of
+        time.</i></span>
     <!-- Table -->
-    <table class="table table-striped">
+    <table class="table table-striped mt-3">
         <thead>
         <tr>
-            <th>
-                <span th:text="${search}"></span>
-            </th>
+            <th></th>
             <th>Name</th>
+            <th>Last Seen</th>
             <th>Attended Services</th>
             <th>Remarks</th>
         </tr>
         </thead>
         <tbody>
-        <tr th:each="member : ${page.items}">
+        <tr th:each="member : ${page.items}" th:classappend="${member.inactive ? 'inactive-member' : 'active-member'}">
             <td><img th:src="@{${member.profilePicture}}" alt="Profile Picture" width="50" height="50"></td>
             <td>
-                <a th:text="${member.name}" href="#"></a><br/>
-                <span th:class="'badge ' + ${member.badgeColor}"
-                      th:text="${member.memberStatus}">
-                </span>
+                <a href="#" th:text="${member.name}"></a><br/>
+                <span th:class="'badge ' + ${member.badgeColor}" th:text="${member.memberStatus}"></span>
             </td>
-            <td>
-               <span th:text="${member.attendedServices}"></span>
-            </td>
-            <td>
-                <span th:text="${member.remarks}"></span>
-            </td>
+            <td><span th:text="${member.lastSeen}"></span></td>
+            <td><span th:text="${member.attendedServices}"></span></td>
+            <td><span th:text="${member.remarks}"></span></td>
         </tr>
         </tbody>
     </table>
+
 
     <!-- Pagination -->
     <div class="d-flex justify-content-center">
         <ul class="pagination">
             <!-- Previous Page -->
             <li class="page-item" th:classappend="${currentPage == 1 ? 'disabled' : ''}">
-                <a class="page-link" th:href="@{'/reports/members?page=' + (${currentPage - 1}) + '&search=' + ${search}+ '&key=' + ${key} + '&code=' + ${code}+ '&email=' + ${email}}">Previous</a>
+                <a class="page-link"
+                   th:href="@{'/reports/members?page=' + (${currentPage - 1}) + '&search=' + ${search}+ '&key=' + ${key} + '&code=' + ${code}+ '&email=' + ${email}}">Previous</a>
             </li>
 
             <!-- Page Numbers -->
-            <li class="page-item" th:each="pageNumber : ${displayPages}" th:classappend="${pageNumber == currentPage ? 'active' : ''}">
-                <a class="page-link" th:href="@{'/reports/members?page=' + ${pageNumber} + '&search=' + ${search} + '&key=' + ${key} + '&code=' + ${code}+ '&email=' + ${email}}" th:text="${pageNumber}"></a>
+            <li class="page-item" th:each="pageNumber : ${displayPages}"
+                th:classappend="${pageNumber == currentPage ? 'active' : ''}">
+                <a class="page-link"
+                   th:href="@{'/reports/members?page=' + ${pageNumber} + '&search=' + ${search} + '&key=' + ${key} + '&code=' + ${code}+ '&email=' + ${email}}"
+                   th:text="${pageNumber}"></a>
             </li>
 
             <!-- Next Page -->
             <li class="page-item" th:classappend="${currentPage + 1 >= totalPages ? 'disabled' : ''}">
-                <a class="page-link" th:href="@{'/reports/members?page=' + (${currentPage + 1}) + '&search=' + ${search}+ '&key=' + ${key} + '&code=' + ${code}+ '&email=' + ${email}}">Next</a>
+                <a class="page-link"
+                   th:href="@{'/reports/members?page=' + (${currentPage + 1}) + '&search=' + ${search}+ '&key=' + ${key} + '&code=' + ${code}+ '&email=' + ${email}}">Next</a>
             </li>
         </ul>
     </div>

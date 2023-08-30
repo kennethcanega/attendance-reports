@@ -21,6 +21,7 @@ public class Member {
     private MemberStatus memberStatus;
     private Status status;
     private MemberReport report;
+    private String lastSeen;
 
     public String getAttendedServices() {
         return report.getService().getAttended() + " / " + report.getService().getTotal();
@@ -43,6 +44,21 @@ public class Member {
                 return "badge-danger";
         }
         return "badge-secondary";
+    }
+
+    public int getMinimumServicesAttended() {
+        if (report.service.getTotal() < 12) {
+            return 1;
+        }
+
+        return report.service.getTotal() / 9;
+    }
+
+    public boolean isInactive() {
+        if (report.service.getTotal() < 12) {
+            return false;
+        }
+        return getMinimumServicesAttended() >= report.service.getAttended();
     }
 
     @Data
