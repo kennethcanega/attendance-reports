@@ -25,6 +25,23 @@
             font-weight: bold;
             background-color: #E7A6A2FF !important;
         }
+
+        .crbc-button {
+            background-color: #831d3c !important;
+            border-color: #831d3c !important;
+        }
+
+        .pagination .page-link {
+            color: #831d3c;
+            border-color: #831d3c;
+        }
+
+        /* Change background color and font color of the active page */
+        .pagination .page-item.active .page-link {
+            background-color: #831d3c;
+            border-color: #831d3c;
+            color: #fff; /* You can change this to any color you want for the font color */
+        }
     </style>
 </head>
 <body>
@@ -37,15 +54,15 @@
     <form th:action="@{/reports/members}" method="get">
         <div class="form-group">
             <!-- Hidden fields to keep the existing parameters -->
-            <input type="hidden" name="page" th:value="${pageNumber}" />
-            <input type="hidden" name="key" th:value="${key}" />
-            <input type="hidden" name="code" th:value="${code}" />
-            <input type="hidden" name="email" th:value="${email}" />
+            <input type="hidden" name="page" th:value="${pageNumber}"/>
+            <input type="hidden" name="key" th:value="${key}"/>
+            <input type="hidden" name="code" th:value="${code}"/>
+            <input type="hidden" name="email" th:value="${email}"/>
 
             <!-- Text input for the search query -->
             <input type="text" class="form-control" name="search" placeholder="Search by name" th:value="${search}">
 
-            <button type="submit" class="btn btn-primary mt-2">Search</button>
+            <button type="submit" class="btn btn-primary mt-2 crbc-button">Search</button>
         </div>
     </form>
 
@@ -58,7 +75,7 @@
             <th></th>
             <th>Name</th>
             <th>Last Seen</th>
-<!--            <th>Attended Services</th>-->
+            <!--            <th>Attended Services</th>-->
             <th>Remarks</th>
         </tr>
         </thead>
@@ -70,7 +87,7 @@
                 <span th:class="'badge ' + ${member.badgeColor}" th:text="${member.memberStatus}"></span>
             </td>
             <td><span th:text="${member.lastSeen}"></span></td>
-<!--            <td><span th:text="${member.attendedServices}"></span></td>-->
+            <!--            <td><span th:text="${member.attendedServices}"></span></td>-->
             <td><span th:text="${member.remarks}"></span></td>
         </tr>
         </tbody>
@@ -101,6 +118,7 @@
             </li>
         </ul>
     </div>
+
 </div>
 
 </body>
