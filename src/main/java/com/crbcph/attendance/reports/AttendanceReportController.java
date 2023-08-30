@@ -42,6 +42,7 @@ public class AttendanceReportController {
         model.addAttribute("totalPages", data.getTotalPages());
         model.addAttribute("code", code);
         model.addAttribute("key", key);
+        model.addAttribute("displayPages", data.getDisplayPages());
         return "members";
     }
 
