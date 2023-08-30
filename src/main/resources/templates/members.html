@@ -34,9 +34,17 @@
     <h2 class="mb-4">Members List</h2>
 
     <!-- Search Form -->
-    <form th:action="@{/page.items}" method="get">
+    <form th:action="@{/reports/members}" method="get">
         <div class="form-group">
-            <input type="text" class="form-control" name="search" placeholder="Search by name">
+            <!-- Hidden fields to keep the existing parameters -->
+            <input type="hidden" name="page" th:value="${pageNumber}" />
+            <input type="hidden" name="key" th:value="${key}" />
+            <input type="hidden" name="code" th:value="${code}" />
+            <input type="hidden" name="email" th:value="${email}" />
+
+            <!-- Text input for the search query -->
+            <input type="text" class="form-control" name="search" placeholder="Search by name" th:value="${search}">
+
             <button type="submit" class="btn btn-primary mt-2">Search</button>
         </div>
     </form>
