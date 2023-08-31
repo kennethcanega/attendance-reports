@@ -56,6 +56,7 @@
             object-fit: cover;
             display: block;
             margin: auto;
+            cursor: pointer;
         }
 
         .view-image-text {
@@ -64,6 +65,15 @@
             display: block;
             text-align: center;
             margin-top: 3px;
+        }
+
+        .name-text {
+            display: block;
+            text-align: center;
+        }
+
+        .status-badge-wrapper {
+            text-align: center;
         }
     </style>
 </head>
@@ -96,22 +106,29 @@
         <thead>
         <tr>
             <th></th>
-            <th>Name</th>
             <th>Last Seen</th>
             <th>Remarks</th>
         </tr>
         </thead>
         <tbody>
-        <tr th:each="member, iterStat : ${page.items}" th:classappend="${member.inactive ? 'inactive-member' : 'active-member'}">
+        <tr th:each="member, iterStat : ${page.items}"
+            th:classappend="${member.inactive ? 'inactive-member' : 'active-member'}">
             <td>
                 <!-- Generate a unique modal ID using the iteration index -->
-                <img th:src="@{${member.profilePicture}}" alt="Profile Picture" class="img-fluid rounded-circle thumbnail-image"
+                <img th:src="@{${member.profilePicture}}" alt="Profile Picture"
+                     class="img-fluid rounded-circle thumbnail-image"
                      th:attr="data-toggle='modal', data-target='#imageModal' + ${iterStat.index}">
                 <a href="#" class="view-image-text"
                    th:attr="data-toggle='modal', data-target='#imageModal' + ${iterStat.index}">View full image</a>
 
+
+                <a class="name-text mt-2" href="#" th:text="${member.name}"></a>
+                <div class="status-badge-wrapper">
+                    <span class="status-badge" th:class="'badge ' + ${member.badgeColor}" th:text="${member.memberStatus}"></span>
+                </div>
                 <!-- Bootstrap Modal -->
-                <div th:id="'imageModal' + ${iterStat.index}" class="modal fade" tabindex="-1" aria-labelledby="imageModalLabel" aria-hidden="true">
+                <div th:id="'imageModal' + ${iterStat.index}" class="modal fade" tabindex="-1"
+                     aria-labelledby="imageModalLabel" aria-hidden="true">
                     <div class="modal-dialog modal-dialog-centered">
                         <div class="modal-content">
                             <div class="modal-header">
@@ -125,15 +142,12 @@
                                 <img th:src="@{${member.profilePicture}}" alt="Profile Picture" class="img-fluid">
                             </div>
                             <div class="modal-footer">
-                                <button type="button" class="btn btn-secondary crbc-button" data-dismiss="modal">Close</button>
+                                <button type="button" class="btn btn-secondary crbc-button" data-dismiss="modal">Close
+                                </button>
                             </div>
                         </div>
                     </div>
                 </div>
-            </td>
-            <td>
-                <a href="#" th:text="${member.name}"></a><br/>
-                <span th:class="'badge ' + ${member.badgeColor}" th:text="${member.memberStatus}"></span>
             </td>
             <td><span th:text="${member.lastSeen}"></span></td>
             <td><span th:text="${member.remarks}"></span></td>
