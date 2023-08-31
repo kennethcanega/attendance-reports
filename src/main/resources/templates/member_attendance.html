@@ -28,7 +28,7 @@
             background-color: #831d3c !important;
             border-color: #831d3c !important;
         }
-        
+
         .profile-image {
             cursor: pointer;
             width: 100px;
@@ -62,7 +62,7 @@
                     </div>
                     <div class="col-md-9 mt-3">
                         <div class="profile-item mb-2"><strong>Name: </strong><span th:text="${data.name}"></span></div>
-                        <div class="profile-item mb-2"><strong>Lord's Day attendance: </strong><span th:text="${data.attendancePercentage}">90%</span></div>
+                        <div class="profile-item mb-2"><strong>Lord's Day Attended: </strong><span th:text="${data.lordsDay.attended + '/' + data.lordsDay.total}">90%</span></div>
                         <div class="profile-item mb-2" th:if="${data.showNickName}"><strong>Nickname: </strong><span th:text="${data.nickName}">JC</span></div>
                     </div>
                 </div>
