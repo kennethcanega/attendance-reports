@@ -1,10 +1,12 @@
 package com.crbcph.attendance.component.http;
 
 import com.crbcph.attendance.members.model.domain.Member;
+import com.crbcph.attendance.members.model.domain.MemberAttendance;
 import com.crbcph.attendance.members.model.domain.MemberPageDto;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestParam;
 
@@ -20,5 +22,15 @@ public interface UsheringClient {
             @RequestParam("search") String search,
             @RequestParam("email") String email,
             @RequestParam("size") int size
+    );
+
+    @GetMapping("/members/reports/{memberId}")
+    ResponseEntity<MemberAttendance> getMemberAttendance(
+            @RequestHeader("X-Client-ID") String clientId,
+            @RequestHeader("X-Client-Secret") String clientSecret,
+            @PathVariable Long memberId,
+            @RequestParam("access_code") String code,
+            @RequestParam("access_key") String key,
+            @RequestParam("email") String email
     );
 }
