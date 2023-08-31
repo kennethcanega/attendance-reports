@@ -23,6 +23,12 @@
         .profile-item {
             font-size: 1rem;
         }
+
+        .crbc-button {
+            background-color: #831d3c !important;
+            border-color: #831d3c !important;
+        }
+        
         .profile-image {
             cursor: pointer;
             width: 100px;
@@ -50,13 +56,13 @@
                 <div class="row">
                     <div class="col-md-3 text-center">
                         <img th:src="@{${data.profilePicture}}" alt="Profile Image" class="profile-image"
-                             th:attr="data-toggle='modal', data-target='#imageModal'">
+                             data-bs-toggle="modal" data-bs-target="#imageModal">
                         <a href="#" class="view-image-text"
-                           th:attr="data-toggle='modal', data-target='#imageModal'">View full image</a>
+                           data-bs-toggle="modal" data-bs-target="#imageModal">View full image</a>
                     </div>
                     <div class="col-md-9 mt-3">
                         <div class="profile-item mb-2"><strong>Name: </strong><span th:text="${data.name}"></span></div>
-                        <div class="profile-item mb-2"><strong>Percentage: </strong><span th:text="${data.attendancePercentage}">90%</span></div>
+                        <div class="profile-item mb-2"><strong>Lord's Day attendance: </strong><span th:text="${data.attendancePercentage}">90%</span></div>
                         <div class="profile-item mb-2" th:if="${data.showNickName}"><strong>Nickname: </strong><span th:text="${data.nickName}">JC</span></div>
                     </div>
                 </div>
@@ -147,7 +153,7 @@
 
 
 <!-- Bootstrap Modal -->
-<div th:id="imageModal" class="modal fade" tabindex="-1"
+<div id="imageModal" class="modal fade" tabindex="-1"
      aria-labelledby="imageModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content">
