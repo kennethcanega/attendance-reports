@@ -81,7 +81,9 @@
         </thead>
         <tbody>
         <tr th:each="member : ${page.items}" th:classappend="${member.inactive ? 'inactive-member' : 'active-member'}">
-            <td><img th:src="@{${member.profilePicture}}" alt="Profile Picture" width="50" height="50"></td>
+            <td>
+                <img th:src="@{${member.profilePicture}}" alt="Profile Picture" class="img-fluid rounded-circle" style="width: 50px; height: 50px; object-fit: cover;">
+            </td>
             <td>
                 <a href="#" th:text="${member.name}"></a><br/>
                 <span th:class="'badge ' + ${member.badgeColor}" th:text="${member.memberStatus}"></span>
@@ -100,7 +102,7 @@
             <!-- Previous Page -->
             <li class="page-item" th:classappend="${currentPage == 1 ? 'disabled' : ''}">
                 <a class="page-link"
-                   th:href="@{'/reports/members?page=' + (${currentPage - 1}) + '&search=' + ${search}+ '&key=' + ${key} + '&code=' + ${code}+ '&email=' + ${email}}">Previous</a>
+                   th:href="@{'/reports/members?page=' + (${currentPage - 1}) + '&search=' + ${search}+ '&key=' + ${key} + '&code=' + ${code}+ '&email=' + ${email}}">&larr;</a>
             </li>
 
             <!-- Page Numbers -->
@@ -114,7 +116,7 @@
             <!-- Next Page -->
             <li class="page-item" th:classappend="${currentPage + 1 >= totalPages ? 'disabled' : ''}">
                 <a class="page-link"
-                   th:href="@{'/reports/members?page=' + (${currentPage + 1}) + '&search=' + ${search}+ '&key=' + ${key} + '&code=' + ${code}+ '&email=' + ${email}}">Next</a>
+                   th:href="@{'/reports/members?page=' + (${currentPage + 1}) + '&search=' + ${search}+ '&key=' + ${key} + '&code=' + ${code}+ '&email=' + ${email}}">&rarr;</a>
             </li>
         </ul>
     </div>
