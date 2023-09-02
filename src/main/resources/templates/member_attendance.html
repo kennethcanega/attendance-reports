@@ -133,10 +133,12 @@
                     </div>
                     <div class="col-md-9 mt-3">
                         <div class="profile-item mb-2"><strong>Name: </strong><span th:text="${data.name}"></span></div>
-                        <div class="profile-item mb-2"><strong>Lord's Day Attended: </strong><span
-                                th:text="${data.lordsDay.attended + '/' + data.lordsDay.total}">90%</span></div>
+                        <div class="profile-item mb-2"><strong>Lord's Day: </strong><span
+                                th:text="${data.lordsDay.attended + ' out of  ' + data.lordsDay.total+' attended'}"></span></div>
                         <div class="profile-item mb-2" th:if="${data.showNickName}"><strong>Nickname: </strong><span
-                                th:text="${data.nickName}">JC</span></div>
+                                th:text="${data.nickName}"></span></div>
+                        <div class="profile-item mb-2" th:if="${data.showRemarks}"><strong>Remarks: </strong><span
+                                th:text="${data.remarks}"></span></div>
                     </div>
                 </div>
             </div>
@@ -165,7 +167,9 @@
                                     </div>
                                 </div>
                                 <p class="card-text"
-                                   th:text="${data.sundaySchool.attended + '/' + data.sundaySchool.total}"></p>
+                                   th:text="${data.sundaySchool.attended + ' out of ' + data.sundaySchool.total+ ' services attended'}"></p>
+
+                                <a href="#link-to-logs-for-this-category" class="btn btn-outline-primary btn-sm mt-2">View Logs</a>
                             </div>
                         </div>
                     </div>
@@ -183,7 +187,8 @@
                                     </div>
                                 </div>
                                 <p class="card-text"
-                                   th:text="${data.morningService.attended + '/' + data.morningService.total}"></p>
+                                   th:text="${data.morningService.attended + ' out of ' + data.morningService.total+' services attended'}"></p>
+                                <a href="#link-to-logs-for-this-category" class="btn btn-outline-primary btn-sm mt-2">View Logs</a>
                             </div>
                         </div>
                     </div>
@@ -201,7 +206,9 @@
                                     </div>
                                 </div>
                                 <p class="card-text"
-                                   th:text="${data.afternoonService.attended + '/' + data.afternoonService.total}"></p>
+                                   th:text="${data.afternoonService.attended + ' out of ' + data.afternoonService.total+' services attended'}"></p>
+
+                                <a href="#link-to-logs-for-this-category" class="btn btn-outline-primary btn-sm mt-2">View Logs</a>
                             </div>
                         </div>
                     </div>
@@ -220,7 +227,9 @@
                                 </div>
 
                                 <p class="card-text"
-                                   th:text="${data.lordSupper.attended + '/' + data.lordSupper.total}"></p>
+                                   th:text="${data.lordSupper.attended + ' out of ' + data.lordSupper.total+' services attended'}"></p>
+
+                                <a href="#link-to-logs-for-this-category" class="btn btn-outline-primary btn-sm mt-2">View Logs</a>
                             </div>
                         </div>
                     </div>

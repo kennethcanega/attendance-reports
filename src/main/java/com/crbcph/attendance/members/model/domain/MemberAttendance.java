@@ -31,6 +31,10 @@ public class MemberAttendance {
         return !StringUtils.isEmpty(nickName);
     }
 
+    public boolean showRemarks() {
+        return !StringUtils.isEmpty(remarks);
+    }
+
     public String attendancePercentage() {
         double percentage = ((double) lordsDay.getAttended() / (double) lordsDay.getTotal()) * 100d;
         return String.format("%.2f", percentage) + "%";
