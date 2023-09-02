@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-    <title>Profile Page</title>
+    <title>CRBC Ushering | Profile</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet"
           integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
     <!-- Bootstrap Bundle with Popper.js -->
@@ -134,7 +134,7 @@
                     <div class="col-md-9 mt-3">
                         <div class="profile-item mb-2"><strong>Name: </strong><span th:text="${data.name}"></span></div>
                         <div class="profile-item mb-2"><strong>Lord's Day: </strong><span
-                                th:text="${data.lordsDay.attended + ' out of  ' + data.lordsDay.total+' attended'}"></span></div>
+                                th:text="${data.lordsDayText}"></span></div>
                         <div class="profile-item mb-2" th:if="${data.showNickName}"><strong>Nickname: </strong><span
                                 th:text="${data.nickName}"></span></div>
                         <div class="profile-item mb-2" th:if="${data.showRemarks}"><strong>Remarks: </strong><span
@@ -169,7 +169,7 @@
                                 <p class="card-text"
                                    th:text="${data.sundaySchool.attended + ' out of ' + data.sundaySchool.total+ ' services attended'}"></p>
 
-                                <a href="#link-to-logs-for-this-category" class="btn btn-outline-primary btn-sm mt-2">View Logs</a>
+<!--                                <a href="#link-to-logs-for-this-category" class="btn btn-outline-primary btn-sm mt-2">View Logs</a>-->
                             </div>
                         </div>
                     </div>
@@ -188,7 +188,7 @@
                                 </div>
                                 <p class="card-text"
                                    th:text="${data.morningService.attended + ' out of ' + data.morningService.total+' services attended'}"></p>
-                                <a href="#link-to-logs-for-this-category" class="btn btn-outline-primary btn-sm mt-2">View Logs</a>
+<!--                                <a href="#link-to-logs-for-this-category" class="btn btn-outline-primary btn-sm mt-2">View Logs</a>-->
                             </div>
                         </div>
                     </div>
@@ -208,7 +208,7 @@
                                 <p class="card-text"
                                    th:text="${data.afternoonService.attended + ' out of ' + data.afternoonService.total+' services attended'}"></p>
 
-                                <a href="#link-to-logs-for-this-category" class="btn btn-outline-primary btn-sm mt-2">View Logs</a>
+<!--                                <a href="#link-to-logs-for-this-category" class="btn btn-outline-primary btn-sm mt-2">View Logs</a>-->
                             </div>
                         </div>
                     </div>
@@ -229,7 +229,7 @@
                                 <p class="card-text"
                                    th:text="${data.lordSupper.attended + ' out of ' + data.lordSupper.total+' services attended'}"></p>
 
-                                <a href="#link-to-logs-for-this-category" class="btn btn-outline-primary btn-sm mt-2">View Logs</a>
+<!--                                <a href="#link-to-logs-for-this-category" class="btn btn-outline-primary btn-sm mt-2">View Logs</a>-->
                             </div>
                         </div>
                     </div>

@@ -26,6 +26,9 @@ public class MemberAttendance {
     private HeatMap heatMap;
     private String systemCreationDate;
 
+    public String getLordsDayText() {
+        return "Seen on " + this.lordsDay.getAttended() + " out of " + this.lordsDay.getTotal() + " Lord's Days";
+    }
 
     public boolean showNickName() {
         return !StringUtils.isEmpty(nickName);
