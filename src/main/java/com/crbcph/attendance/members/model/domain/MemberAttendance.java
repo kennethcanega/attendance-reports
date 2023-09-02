@@ -75,4 +75,19 @@ class DateAttendance {
     private boolean lordSupper;
     private int count;
     private boolean lordSupperDate;
+
+    public String getCssClass() {
+        switch(count) {
+            case 0:
+                return "gray";
+            case 1:
+                return "very-light-green";
+            case 2:
+                return "light-green";
+            case 3:
+                return "green";
+            default:
+                return "dark-green";
+        }
+    }
 }

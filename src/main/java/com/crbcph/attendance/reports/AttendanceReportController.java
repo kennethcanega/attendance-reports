@@ -58,6 +58,7 @@ public class AttendanceReportController {
             @RequestParam(name = "search", defaultValue = "") String search,
             @RequestParam(name = "email", defaultValue = "") String email,
             @RequestParam(name = "key") String key,
+            @RequestParam(name = "year", defaultValue = "2023") int selectedYear,
             Model model
     ) {
         Map<String, String> keyValues = new HashMap<>();
@@ -71,6 +72,7 @@ public class AttendanceReportController {
         model.addAttribute("key", key);
         model.addAttribute("email", email);
         model.addAttribute("data", data);
+        model.addAttribute("selectedYear", selectedYear);
         keyValues.put("email", email);
         return "member_attendance";
     }
