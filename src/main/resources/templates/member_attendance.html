@@ -62,25 +62,31 @@
             background-color: #a1a1a166;
             border: 1px solid #55555542;
         }
+
         .very-light-green {
             background-color: #dfffdf;
             border: 1px solid #55555542;
         }
+
         .light-green {
             background-color: #80ff80;
             border: #55555542;
         }
+
         .green {
             background-color: #00cc00;
             border: #55555542;
         }
+
         .dark-green {
             background-color: #006600;
             border: #55555542;
         }
+
         .tooltip-content {
             display: none;
         }
+
         .heatmap-box:hover .tooltip-content {
             display: block;
             position: absolute;
@@ -91,6 +97,7 @@
             margin-top: 5px;
             z-index: 100;
         }
+
         .heatmap-boxes-container {
             border: 1px solid #8080806e;
             padding: 5px;
@@ -151,7 +158,9 @@
             <div class="summary-container">
                 <h4 class="mb-4">Attendance Summary</h4>
                 <p class="note-text mb-3">
-                    <b>Note:</b> The displayed attendance is based on usher logs and may contain occasional discrepancies. Records prior to April 30, 2023, are excluded due to the system's implementation date.
+                    <b>Note:</b> The displayed attendance is based on usher logs and may contain occasional
+                    discrepancies. Records prior to April 30, 2023, are excluded due to the system's implementation
+                    date.
                 </p>
                 <div class="row">
                     <div class="col-md-4 mb-3">
@@ -169,7 +178,7 @@
                                 <p class="card-text"
                                    th:text="${data.sundaySchool.attended + ' out of ' + data.sundaySchool.total+ ' services attended'}"></p>
 
-<!--                                <a href="#link-to-logs-for-this-category" class="btn btn-outline-primary btn-sm mt-2">View Logs</a>-->
+                                <!--                                <a href="#link-to-logs-for-this-category" class="btn btn-outline-primary btn-sm mt-2">View Logs</a>-->
                             </div>
                         </div>
                     </div>
@@ -188,7 +197,7 @@
                                 </div>
                                 <p class="card-text"
                                    th:text="${data.morningService.attended + ' out of ' + data.morningService.total+' services attended'}"></p>
-<!--                                <a href="#link-to-logs-for-this-category" class="btn btn-outline-primary btn-sm mt-2">View Logs</a>-->
+                                <!--                                <a href="#link-to-logs-for-this-category" class="btn btn-outline-primary btn-sm mt-2">View Logs</a>-->
                             </div>
                         </div>
                     </div>
@@ -208,7 +217,7 @@
                                 <p class="card-text"
                                    th:text="${data.afternoonService.attended + ' out of ' + data.afternoonService.total+' services attended'}"></p>
 
-<!--                                <a href="#link-to-logs-for-this-category" class="btn btn-outline-primary btn-sm mt-2">View Logs</a>-->
+                                <!--                                <a href="#link-to-logs-for-this-category" class="btn btn-outline-primary btn-sm mt-2">View Logs</a>-->
                             </div>
                         </div>
                     </div>
@@ -229,7 +238,7 @@
                                 <p class="card-text"
                                    th:text="${data.lordSupper.attended + ' out of ' + data.lordSupper.total+' services attended'}"></p>
 
-<!--                                <a href="#link-to-logs-for-this-category" class="btn btn-outline-primary btn-sm mt-2">View Logs</a>-->
+                                <!--                                <a href="#link-to-logs-for-this-category" class="btn btn-outline-primary btn-sm mt-2">View Logs</a>-->
                             </div>
                         </div>
                     </div>
@@ -244,7 +253,8 @@
             <div class="heatmap-container">
                 <h4 class="mb-4">Attendance Heatmap</h4>
                 <p class="note-text mb-3">
-                    This is the member's attendance heatmap recorded by ushers. Gray for absence, green for presence. The shade of green indicates attendance frequency. Each box represents a Lord's Day.
+                    This is the member's attendance heatmap recorded by ushers. Gray for absence, green for presence.
+                    The shade of green indicates attendance frequency. Each box represents a Lord's Day.
                 </p>
                 <div class="row">
                     <div class="col-md-4 mb-3">
@@ -258,7 +268,8 @@
                     </div>
 
                     <div class="col-md-8">
-                        <div class="heatmap-boxes-container" style="display: flex; flex-wrap: wrap; align-content: flex-start;">
+                        <div class="heatmap-boxes-container"
+                             style="display: flex; flex-wrap: wrap; align-content: flex-start;">
                             <div th:each="date : ${data.heatMap.dates}" th:class="|heatmap-box ${date.cssClass}|">
                                 <div class="tooltip-content"
                                      th:text="'Date: ' + ${date.date} + ', Count: ' + ${date.count}"></div>
@@ -273,6 +284,83 @@
 </div>
 
 
+<!-- Attendance Confirmation Modal -->
+<div th:if="${showModal}" id="attendanceConfirmationModal" class="modal fade" tabindex="-1"
+     aria-labelledby="attendanceConfirmationModalLabel" aria-hidden="true">
+    <form id="attendanceForm" th:action="@{/reports/members/attendance}" method="post">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="attendanceConfirmationModalLabel">Attendance Review</h5>
+                    <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div th:if="${showSuccess}" class="container mt-2">
+                        <div class="alert alert-success" role="alert">
+                            <h4 class="alert-heading">Well done!</h4>
+                            <p>Your request was processed successfully.</p>
+                        </div>
+                    </div>
+                    <b th:text="'Did you see '+${data.name}+' on ' + ${date} + ' ?'"></b>
+                    <br/>
+                    <br/>
+                    <p>
+                        Checking the boxes below signifies that you saw this member during the listed service(s). If you
+                        didn't see him, you can close this modal to view other information.
+                    </p>
+                    <input type="hidden" th:value="${memberId}" name="memberId"/>
+                    <input type="hidden" th:value="${plainDate}" name="date"/>
+                    <input type="hidden" th:value="${email}" name="email"/>
+                    <input type="hidden" th:value="${code}" name="code"/>
+                    <input type="hidden" th:value="${key}" name="key"/>
+                    <input type="hidden" th:value="${selectedYear}" name="year"/>
+                    <div class="form-check">
+                        <input class="form-check-input" type="checkbox" id="sundaySchoolCheck"
+                               th:value="${ss} ? 'yes' : 'no'"
+                               th:checked="${ss}"
+                               name="sundaySchoolCheck" onclick="changeValue(this)">
+                        <label class="form-check-label" for="sundaySchoolCheck">
+                            <b>Sunday School</b>
+                        </label>
+                    </div>
+                    <div class="form-check">
+                        <input class="form-check-input" type="checkbox" id="morningServiceCheck"
+                               th:value="${am} ? 'yes' : 'no'"
+                               th:checked="${am}"
+                               name="morningServiceCheck" onclick="changeValue(this)">
+                        <label class="form-check-label" for="morningServiceCheck">
+                            <b>Morning Service</b>
+                        </label>
+                    </div>
+                    <div class="form-check">
+                        <input class="form-check-input" type="checkbox" id="afternoonServiceCheck"
+                               th:value="${pm} ? 'yes' : 'no'"
+                               th:checked="${pm}"
+                               name="afternoonServiceCheck" onclick="changeValue(this)">
+                        <label class="form-check-label" for="afternoonServiceCheck">
+                            <b>Afternoon Service</b>
+                        </label>
+                    </div>
+                    <div th:if="${isLS}" class="form-check">
+                        <input class="form-check-input" type="checkbox" id="lordSupperCheck"
+                               th:value="${ls} ? 'yes' : 'no'"
+                               th:checked="${ls}"
+                               name="lordSupperCheck" onclick="changeValue(this)">
+                        <label class="form-check-label" for="lordSupperCheck">
+                            <b>Lord's Supper</b>
+                        </label>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="submit" class="btn btn-primary crbc-button">Confirm</button>
+                </div>
+    </form>
+</div>
+</div>
+</div>
 <!-- Bootstrap Modal -->
 <div id="imageModal" class="modal fade" tabindex="-1"
      aria-labelledby="imageModalLabel" aria-hidden="true">
@@ -294,6 +382,60 @@
         </div>
     </div>
 </div>
+
+
+<script th:if="${showModal}">
+    document.addEventListener("DOMContentLoaded", function () {
+        setTimeout(function () {
+            var myModal = new bootstrap.Modal(document.getElementById('attendanceConfirmationModal'), {
+                backdrop: 'static',
+                keyboard: false
+            });
+            myModal.show();
+        }, 100);
+    });
+
+
+    function changeValue(checkboxElement) {
+        if (checkboxElement.checked) {
+            checkboxElement.value = "yes";
+        } else {
+            checkboxElement.value = "no";
+        }
+    }
+
+    // document.addEventListener("DOMContentLoaded", function() {
+    //     document.querySelector(".btn-primary").addEventListener("click", function() {
+    //         const attendanceForm = document.getElementById("attendanceForm");
+    //         const sundaySchoolCheck = attendanceForm.querySelector("#sundaySchoolCheck").checked;
+    //         const morningServiceCheck = attendanceForm.querySelector("#morningServiceCheck").checked;
+    //         const afternoonServiceCheck = attendanceForm.querySelector("#afternoonServiceCheck").checked;
+    //         const lordSupperCheck = attendanceForm.querySelector("#lordSupperCheck")?.checked;
+    //
+    //         const data = {
+    //             sundaySchool: sundaySchoolCheck,
+    //             morningService: morningServiceCheck,
+    //             afternoonService: afternoonServiceCheck,
+    //             lordSupper: lordSupperCheck
+    //         };
+    //
+    //         fetch("http://143.198.206.157:8069/crbc-onsite/reports", {
+    //             method: "POST",
+    //             headers: {
+    //                 "Content-Type": "application/json",
+    //             },
+    //             body: JSON.stringify(data)
+    //         })
+    //             .then(response => response.json())
+    //             .then(data => {
+    //                 console.log("Success:", data);
+    //             })
+    //             .catch((error) => {
+    //                 console.error("Error:", error);
+    //             });
+    //     });
+    // });
+</script>
 
 </body>
 </html>
