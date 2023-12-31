@@ -259,11 +259,9 @@
                 <div class="row">
                     <div class="col-md-4 mb-3">
                         <a th:each="year : ${data.heatMap.years}"
-                           href="#"
+                           th:href="@{/reports/members/{memberId}(memberId=${memberId}, key=${key}, code=${code}, email=${email}, year=${year})}"
                            th:class="${year == selectedYear} ? 'year selected-year' : 'year'">
-                            <div>
-                                <span th:text="${year}"></span>
-                            </div>
+                            <span th:text="${year}"></span>
                         </a>
                     </div>
 
@@ -435,17 +433,6 @@
     //             });
     //     });
     // });
-
-    document.querySelectorAll('.year').forEach(item => {
-        item.addEventListener('click', event => {
-            let currentUrl = new URL(window.location.href);
-            let yearValue = event.target.textContent.trim(); // Get the year from the clicked element
-            currentUrl.searchParams.set('year', yearValue); // Set the year to clicked year
-            currentUrl.searchParams.delete('date'); // Remove the date parameter
-            window.location.href = currentUrl.href; // Redirect to the new URL
-        });
-    });
-
 </script>
 
 </body>
