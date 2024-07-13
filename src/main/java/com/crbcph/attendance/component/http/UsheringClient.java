@@ -42,4 +42,10 @@ public interface UsheringClient {
             @RequestHeader("X-Client-Secret") String clientSecret,
             @RequestBody AttendanceRequest request
     );
+
+    @GetMapping("/attendance/download")
+    ResponseEntity<byte[]> downloadAttendanceExcel(
+            @RequestHeader("X-Client-ID") String clientId,
+            @RequestHeader("X-Client-Secret") String clientSecret
+    );
 }

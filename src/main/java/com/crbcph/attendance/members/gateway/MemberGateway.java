@@ -19,4 +19,6 @@ public interface MemberGateway {
     void submit(
             AttendanceRequest request
     );
+
+    byte[] downloadExcel();
 }

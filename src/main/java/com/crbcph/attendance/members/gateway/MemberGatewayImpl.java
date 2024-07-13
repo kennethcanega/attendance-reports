@@ -67,4 +67,17 @@ public class MemberGatewayImpl implements MemberGateway {
             throw new RuntimeException("Unable to connect to API.");
         }
     }
+
+    @Override
+    public byte[] downloadExcel() {
+        ResponseEntity<byte[]> response = usheringClient.downloadAttendanceExcel(
+                apiConfig.getClientId(),
+                apiConfig.getClientSecret()
+        );
+        if (response.getStatusCode() != HttpStatus.OK) {
+            throw new RuntimeException("Unable to connect to API.");
+
+        }
+        return response.getBody();
+    }
 }

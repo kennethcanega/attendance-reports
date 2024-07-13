@@ -29,6 +29,14 @@ import java.util.Map;
 public class AttendanceReportController {
     private final MemberGateway memberGateway;
 
+    @ResponseBody
+    @GetMapping("/download")
+    public byte[] downloadExcel(
+            @RequestParam(name = "key") String key
+    ) {
+        return memberGateway.downloadExcel();
+    }
+
     @GetMapping("/members")
     public String viewReports(
             @RequestParam(name = "code") String code,
