@@ -193,7 +193,7 @@
     document.getElementById('downloadButton').addEventListener('click', function(event) {
         event.preventDefault(); // Prevent the default button click behavior
 
-        fetch('/reports/download')
+        fetch('/crbc-attendance/reports/download')
             .then(response => {
                 if (!response.ok) {
                     throw new Error('Network response was not ok');
