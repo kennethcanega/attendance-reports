@@ -98,6 +98,7 @@
             <input type="text" class="form-control" name="search" placeholder="Search by name" th:value="${search}">
 
             <button type="submit" class="btn btn-primary mt-2 crbc-button">Search</button>
+            <button id="downloadButton" class="btn btn-primary mt-2 crbc-button">Download Excel</button>
         </div>
     </form>
 
@@ -188,5 +189,21 @@
 
 </div>
 
+<script>
+    document.getElementById('downloadButton').addEventListener('click', function() {
+        fetch('http://143.198.206.157:8092/crbc-ushering/attendance/download')
+            .then(response => response.blob())
+            .then(blob => {
+                const url = window.URL.createObjectURL(new Blob([blob], { type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet' }));
+                const link = document.createElement('a');
+                link.href = url;
+                link.setAttribute('download', 'data.xlsx');
+                document.body.appendChild(link);
+                link.click();
+                link.parentNode.removeChild(link);
+            })
+            .catch(error => console.error('Download error:', error));
+    });
+</script>
 </body>
 </html>
