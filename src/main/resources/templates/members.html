@@ -192,6 +192,9 @@
 <script>
     document.getElementById('downloadButton').addEventListener('click', function(event) {
         event.preventDefault(); // Prevent the default button click behavior
+        const downloadButton = this;
+        downloadButton.disabled = true;
+        downloadButton.textContent = 'Downloading..';
 
         fetch('/crbc-attendance/reports/download')
             .then(response => {
@@ -210,7 +213,11 @@
                 a.click();
                 window.URL.revokeObjectURL(url);
             })
-            .catch(error => console.error('Download error:', error));
+            .catch(error => console.error('Download error:', error))
+            .finally(() => {
+                downloadButton.disabled = false;
+                downloadButton.textContent = 'Download';
+            });
     });
 </script>
 
