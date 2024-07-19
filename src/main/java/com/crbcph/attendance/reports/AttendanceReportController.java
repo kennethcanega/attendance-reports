@@ -30,9 +30,7 @@ public class AttendanceReportController {
 
     @ResponseBody
     @GetMapping("/download")
-    public ResponseEntity<byte[]> downloadExcel(
-            @RequestParam(name = "key") String key
-    ) {
+    public ResponseEntity<byte[]> downloadExcel() {
 
         HttpHeaders httpHeaders = new HttpHeaders();
         httpHeaders.setContentType(MediaType.APPLICATION_OCTET_STREAM);
