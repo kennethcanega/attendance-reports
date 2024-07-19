@@ -192,18 +192,26 @@
 <script>
     document.getElementById('downloadButton').addEventListener('click', function() {
         fetch('http://143.198.206.157:8092/crbc-ushering/attendance/download')
-            .then(response => response.blob())
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('Network response was not ok');
+                }
+                return response.blob();
+            })
             .then(blob => {
-                const url = window.URL.createObjectURL(new Blob([blob], { type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet' }));
-                const link = document.createElement('a');
-                link.href = url;
-                link.setAttribute('download', 'data.xlsx');
-                document.body.appendChild(link);
-                link.click();
-                link.parentNode.removeChild(link);
+                const url = window.URL.createObjectURL(blob);
+                const a = document.createElement('a');
+                a.style.display = 'none';
+                a.href = url;
+                a.download = 'data.xlsx';
+                document.body.appendChild(a);
+                a.click();
+                window.URL.revokeObjectURL(url);
             })
             .catch(error => console.error('Download error:', error));
     });
 </script>
+
+
 </body>
 </html>
