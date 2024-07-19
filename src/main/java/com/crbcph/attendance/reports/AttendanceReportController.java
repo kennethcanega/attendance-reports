@@ -4,18 +4,17 @@ import com.crbcph.attendance.members.gateway.MemberGateway;
 import com.crbcph.attendance.members.model.AttendanceRequest;
 import com.crbcph.attendance.members.model.domain.AttendanceReport;
 import com.crbcph.attendance.members.model.domain.Member;
-import com.crbcph.attendance.members.model.domain.MemberAttendance;
 import com.crbcph.attendance.members.model.domain.MemberPageDto;
 import lombok.RequiredArgsConstructor;
 import org.apache.commons.lang3.StringUtils;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
-import org.springframework.web.servlet.view.RedirectView;
 
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.time.DayOfWeek;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
@@ -31,10 +30,16 @@ public class AttendanceReportController {
 
     @ResponseBody
     @GetMapping("/download")
-    public byte[] downloadExcel(
+    public ResponseEntity<byte[]> downloadExcel(
             @RequestParam(name = "key") String key
     ) {
-        return memberGateway.downloadExcel();
+
+        HttpHeaders httpHeaders = new HttpHeaders();
+        httpHeaders.setContentType(MediaType.APPLICATION_OCTET_STREAM);
+        httpHeaders.setContentDispositionFormData("attachment", "data.xlsx");
+        return ResponseEntity.ok()
+                .headers(httpHeaders)
+                .body(memberGateway.downloadExcel());
     }
 
     @GetMapping("/members")

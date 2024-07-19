@@ -190,8 +190,10 @@
 </div>
 
 <script>
-    document.getElementById('downloadButton').addEventListener('click', function() {
-        fetch('http://143.198.206.157:8092/crbc-ushering/attendance/download')
+    document.getElementById('downloadButton').addEventListener('click', function(event) {
+        event.preventDefault(); // Prevent the default button click behavior
+
+        fetch('/reports/download')
             .then(response => {
                 if (!response.ok) {
                     throw new Error('Network response was not ok');
